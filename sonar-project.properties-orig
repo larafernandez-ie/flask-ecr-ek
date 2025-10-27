@@ -1,0 +1,14 @@
+sonar.projectKey=lessthanthreetech_flask-ecr-eks-ci-cd-sonarcloud
+sonar.organization=lessthanthreetech
+sonar.projectName=flask-ecr-eks-ci-cd-sonarcloud
+
+sonar.sources=.
+sonar.sourceEncoding=UTF-8
+sonar.python.version=3.12
+
+# Excluye infra/ci para centrar findings en el código
+sonar.exclusions=.github/**,k8s/**,docker-compose.yml,Dockerfile
+
+
+
+
