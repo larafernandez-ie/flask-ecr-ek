@@ -131,7 +131,7 @@ jobs:
           kubectl -n "$K8S_NAMESPACE" apply -k k8s
 
       # Si tus manifests usan la etiqueta :latest y quieres forzar que los pods tiren de la nueva imagen,
-      # puedes reiniciar el deployment (útil cuando no cambia el pod template):
+      # puedes reiniciar el deployment (útil cuando no cambia el pod template) :
       - name: Force rollout restart (si usas :latest)
         run: |
           kubectl -n "$K8S_NAMESPACE" rollout restart deployment/"$K8S_DEPLOYMENT_NAME"
