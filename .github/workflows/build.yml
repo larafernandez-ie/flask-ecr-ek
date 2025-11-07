@@ -126,7 +126,7 @@ jobs:
             --region "$AWS_REGION"
 
       # ---- Siempre aplicar manifiestos ----
-      - name: Deploy manifests (Kustomize)
+      - name: Deploy manifests
         run: |
           kubectl -n "$K8S_NAMESPACE" apply -f k8s/
 
