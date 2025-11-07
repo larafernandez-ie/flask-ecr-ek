@@ -128,7 +128,7 @@ jobs:
       # ---- Siempre aplicar manifiestos ----
       - name: Deploy manifests (Kustomize)
         run: |
-          kubectl -n "$K8S_NAMESPACE" apply -k k8s
+          kubectl -n "$K8S_NAMESPACE" apply -k k8s/
 
       # Si tus manifests usan la etiqueta :latest y quieres forzar que los pods tiren de la nueva imagen,
       # puedes reiniciar el deployment (útil cuando no cambia el pod template)  :
