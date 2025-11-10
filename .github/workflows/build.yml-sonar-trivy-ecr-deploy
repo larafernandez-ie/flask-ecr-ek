@@ -6,14 +6,12 @@ on:
       - main
   pull_request:
     types: [opened, synchronize, reopened]
-  workflow_dispatch: # MANUAL DEPLOY
 
 jobs:
   # Job 1: SonarQube - Análisis de calidad
   sonarqube:
     name: SonarQube
     runs-on: ubuntu-latest
-    if: github.event_name != 'workflow_dispatch'   # MANUAL DEPLOY: No ejecutar SonarQube en despliegues manuales
     steps:
       - uses: actions/checkout@v4
         with:
@@ -27,7 +25,6 @@ jobs:
   trivy:
     name: Trivy Security Scan
     runs-on: ubuntu-latest
-    if: github.event_name != 'workflow_dispatch'   # MANUAL DEPLOY: No ejecutar Trivy en despliegues manuales
     steps:
       - uses: actions/checkout@v4
 
@@ -47,9 +44,8 @@ jobs:
   push_ecr:
     name: Build & Push to ECR
     runs-on: ubuntu-latest
-    #needs: [sonarqube, trivy]
-    #if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    if: github.event_name == 'workflow_dispatch' # MANUAL DEPLOY: Ejecutar siempre en despliegues manuales
+    needs: [sonarqube, trivy]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     env:
       AWS_REGION: ${{ vars.AWS_REGION }}
       AWS_ACCOUNT_ID: ${{ vars.AWS_ACCOUNT_ID }}
