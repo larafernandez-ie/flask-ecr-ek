@@ -21,7 +21,7 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
-  # Job 2: Trivy - Escaneo de seguridad
+  # Job 2: Trivy - Escaneo de seguridad 
   trivy:
     name: Trivy Security Scan
     runs-on: ubuntu-latest
