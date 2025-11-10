@@ -47,9 +47,8 @@ jobs:
   push_ecr:
     name: Build & Push to ECR
     runs-on: ubuntu-latest
-    #needs: [sonarqube, trivy]
-    #if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    if: github.event_name == 'workflow_dispatch' # MANUAL DEPLOY: Ejecutar siempre en despliegues manuales
+    needs: [sonarqube, trivy]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     env:
       AWS_REGION: ${{ vars.AWS_REGION }}
       AWS_ACCOUNT_ID: ${{ vars.AWS_ACCOUNT_ID }}
@@ -96,8 +95,9 @@ jobs:
   deploy_eks:
     name: Deploy to EKS
     runs-on: ubuntu-latest
-    needs: [push_ecr]
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    #needs: [push_ecr]
+    #if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    if: github.event_name == 'workflow_dispatch' # MANUAL DEPLOY: Ejecutar siempre en despliegues manuales
     env:
       AWS_REGION: ${{ vars.AWS_REGION }}
       AWS_ACCOUNT_ID: ${{ vars.AWS_ACCOUNT_ID }}
